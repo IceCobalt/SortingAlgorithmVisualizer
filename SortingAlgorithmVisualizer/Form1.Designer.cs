@@ -32,60 +32,61 @@
             buttonReset = new Button();
             panel1 = new Panel();
             buttonStart = new Button();
+            buttonPause = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange( new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem } );
-            menuStrip1.Location = new Point( 0, 0 );
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size( 1502, 24 );
+            menuStrip1.Size = new Size(1502, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange( new ToolStripItem[] { exitToolStripMenuItem } );
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size( 37, 20 );
+            fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size( 92, 22 );
+            exitToolStripMenuItem.Size = new Size(92, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click +=  exitToolStripMenuItem_Click ;
             // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size( 44, 20 );
+            helpToolStripMenuItem.Size = new Size(44, 20);
             helpToolStripMenuItem.Text = "Help";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point( 20, 42 );
+            label1.Location = new Point(49, 46);
             label1.Name = "label1";
-            label1.Size = new Size( 61, 15 );
+            label1.Size = new Size(61, 15);
             label1.TabIndex = 1;
             label1.Text = "Algorithm";
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point( 87, 42 );
+            comboBox1.Location = new Point(116, 43);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size( 153, 23 );
+            comboBox1.Size = new Size(153, 23);
             comboBox1.TabIndex = 2;
             // 
             // buttonReset
             // 
-            buttonReset.Location = new Point( 279, 42 );
+            buttonReset.Location = new Point(293, 42);
             buttonReset.Name = "buttonReset";
-            buttonReset.Size = new Size( 75, 23 );
+            buttonReset.Size = new Size(75, 23);
             buttonReset.TabIndex = 3;
             buttonReset.Text = "Reset";
             buttonReset.UseVisualStyleBackColor = true;
@@ -95,38 +96,49 @@
             // 
             panel1.Anchor =      AnchorStyles.Top  |  AnchorStyles.Bottom   |  AnchorStyles.Left   |  AnchorStyles.Right ;
             panel1.BackColor = SystemColors.ControlDark;
-            panel1.Location = new Point( 20, 103 );
+            panel1.Location = new Point(20, 103);
             panel1.Name = "panel1";
-            panel1.Size = new Size( 1454, 423 );
+            panel1.Size = new Size(1454, 423);
             panel1.TabIndex = 4;
             // 
             // buttonStart
             // 
-            buttonStart.Location = new Point( 384, 42 );
+            buttonStart.Location = new Point(386, 42);
             buttonStart.Name = "buttonStart";
-            buttonStart.Size = new Size( 75, 23 );
+            buttonStart.Size = new Size(75, 23);
             buttonStart.TabIndex = 5;
             buttonStart.Text = "Start";
             buttonStart.UseVisualStyleBackColor = true;
             buttonStart.Click +=  buttonStart_Click ;
             // 
+            // buttonPause
+            // 
+            buttonPause.Location = new Point(499, 42);
+            buttonPause.Name = "buttonPause";
+            buttonPause.Size = new Size(180, 23);
+            buttonPause.TabIndex = 6;
+            buttonPause.Text = "Pause / Resume";
+            buttonPause.UseVisualStyleBackColor = true;
+            buttonPause.Click +=  buttonPause_Click ;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF( 7F, 15F );
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size( 1502, 628 );
-            Controls.Add( buttonStart );
-            Controls.Add( panel1 );
-            Controls.Add( buttonReset );
-            Controls.Add( comboBox1 );
-            Controls.Add( label1 );
-            Controls.Add( menuStrip1 );
+            ClientSize = new Size(1502, 628);
+            Controls.Add(buttonPause);
+            Controls.Add(buttonStart);
+            Controls.Add(panel1);
+            Controls.Add(buttonReset);
+            Controls.Add(comboBox1);
+            Controls.Add(label1);
+            Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
-            menuStrip1.ResumeLayout( false );
+            menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ResumeLayout( false );
+            ResumeLayout(false);
             PerformLayout();
         }
 
@@ -141,5 +153,6 @@
         private Button buttonReset;
         private Panel panel1;
         private Button buttonStart;
+        private Button buttonPause;
     }
 }

@@ -7,27 +7,25 @@ namespace SortingAlgorithmVisualizer {
     class BubbleSort : ISorter {
 
         //Variables needed by the algorithm
-        private bool _sorted = false;
         private int[] Array;
         private Graphics g;
         private int MaxVal;
         Brush WhiteBrush = new System.Drawing.SolidBrush( System.Drawing.Color.White );
         Brush BlackBrush = new System.Drawing.SolidBrush( System.Drawing.Color.Black );
 
-        public void Sort( int[] ArrayIn, Graphics gIn, int MaxValIn ) { 
+        //Constructor
+        public BubbleSort( int[] ArrayIn, Graphics gIn, int MaxValIn ) {
             //using this.Array didnt properly pass the values in so I had to make the names different
             Array = ArrayIn;
             g = gIn;
             MaxVal = MaxValIn;
+        }
 
-            while ( !_sorted ) {
-
-                for (int i = 0; i < Array.Count() - 1; i++ ) {
-                    if ( Array[i] > Array[i + 1] ) {
-                        Swap( i, i + 1 );
-                    }
+        public void NextStep() { 
+            for (int i = 0; i < Array.Count() - 1; i++ ) {
+                if ( Array[i] > Array[i + 1] ) {
+                    Swap( i, i + 1 );
                 }
-                _sorted = IsSorted();
             }
         }
 
@@ -48,11 +46,17 @@ namespace SortingAlgorithmVisualizer {
             g.FillRectangle( WhiteBrush, y, MaxVal - Array[y], 1, MaxVal );
         }
 
-        private bool IsSorted() { //if every spot i is less than spot i + 1, the array is sorted
+        public bool IsSorted() { //if every spot i is less than spot i + 1, the array is sorted
             for ( int i = 0; i < Array.Count() - 1; i++ ) {
                 if ( Array[i] > Array[i + 1] ) return false;
             }
             return true;
+        }
+
+        public void ReDraw() {
+            for (int i = 0; i < Array.Count() - 1; i++ ) {
+                g.FillRectangle( new System.Drawing.SolidBrush( System.Drawing.Color.White ), i, MaxVal - Array[i], 1, MaxVal );
+            }
         }
     }
 }

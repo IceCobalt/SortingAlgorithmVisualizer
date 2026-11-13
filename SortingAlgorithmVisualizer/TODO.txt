@@ -1,0 +1,18 @@
+Not really in any order
+
+#Priority
+add threading
+fix memory issues with reset button
+fix memory issues with pause/resume button
+fix crash when pausing, then making array larger (out of bounds)
+	- give a max array value when starting the sort?
+
+#Eventually
+optimize graphics update (can make 2x faster)
+change colors to tell which node is being swapped with what
+
+#Would be cool but prob won't happen
+
+
+
+#Can't do yet
