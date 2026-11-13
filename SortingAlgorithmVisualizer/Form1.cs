@@ -30,6 +30,8 @@ namespace SortingAlgorithmVisualizer {
         }
 
         private void buttonStart_Click( object sender, EventArgs e ) {
+            if ( Array == null ) buttonReset_Click(null, null);
+
             bgw = new BackgroundWorker(); //do the work in a background thread
             bgw.WorkerSupportsCancellation = true; //make sure it can cancel
             bgw.DoWork += new DoWorkEventHandler(bgw_Task); //add event handler when it runs
@@ -42,6 +44,7 @@ namespace SortingAlgorithmVisualizer {
                 bgw.CancelAsync();
                 Paused = true;
             } else {
+                if (bgw.IsBusy) return;
                 int NumEntries = panel1.Width;
                 int MaxVal = panel1.Height;
                 Paused = false;
@@ -72,7 +75,7 @@ namespace SortingAlgorithmVisualizer {
         //group all the background stuff here
         public void bgw_Task( object sender, System.ComponentModel.DoWorkEventArgs e ) { //what caused the event, and the arguments
             BackgroundWorker bw = sender as BackgroundWorker;
-            string SortEngineName = ( string )e.Argument;
+            string SortEngineName = (string)e.Argument;
             Type type = Type.GetType("SortingAlgorithmVisualizer." + SortEngineName);
             var constructors = type.GetConstructors();
             try {

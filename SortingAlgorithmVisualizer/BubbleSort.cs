@@ -39,11 +39,13 @@ namespace SortingAlgorithmVisualizer {
 
             //remove old values
             //OPTIMIZE? make this one instance that is two pixels, instead of two instances that are one pixel each (for both?)
-            g.FillRectangle( BlackBrush, x, 0, 1, MaxVal );
-            g.FillRectangle( BlackBrush, y, 0, 1, MaxVal );
+            DrawBar(x, Array[x]);
+            DrawBar(y, Array[y]);
+        }
 
-            g.FillRectangle( WhiteBrush, x, MaxVal - Array[x], 1, MaxVal );
-            g.FillRectangle( WhiteBrush, y, MaxVal - Array[y], 1, MaxVal );
+        private void DrawBar(int position, int height) {
+            g.FillRectangle(BlackBrush, position, 0, 1, MaxVal);
+            g.FillRectangle(WhiteBrush, position, MaxVal - Array[position], 1, MaxVal);
         }
 
         public bool IsSorted() { //if every spot i is less than spot i + 1, the array is sorted
