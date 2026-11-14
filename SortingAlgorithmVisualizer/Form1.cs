@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SortingAlgorithmVisualizer {
     public partial class Form1 : Form {
@@ -7,6 +8,8 @@ namespace SortingAlgorithmVisualizer {
         Graphics g;
         BackgroundWorker bgw = null;
         bool Paused = false;
+
+        private Stopwatch timer = new Stopwatch();
 
         public Form1() {
             InitializeComponent();
@@ -37,6 +40,11 @@ namespace SortingAlgorithmVisualizer {
             bgw.DoWork += new DoWorkEventHandler(bgw_Task); //add event handler when it runs
             bgw.RunWorkerAsync(argument: comboBox1.SelectedItem);
 
+            timer.Restart();
+
+
+            buttonStart.Enabled = false;
+
         }
 
         private void buttonPause_Click( object sender, EventArgs e ) {
@@ -45,8 +53,11 @@ namespace SortingAlgorithmVisualizer {
                 Paused = true;
             } else {
                 if (bgw.IsBusy) return;
-                int NumEntries = panel1.Width;
-                int MaxVal = panel1.Height;
+                //int NumEntries = panel1.Width;
+                //int MaxVal = panel1.Height;
+                int NumEntries = Array.Count(); //prevents out of bounds array
+                int MaxVal = Array.Max();
+
                 Paused = false;
 
                 for (int i = 0; i < NumEntries; i++ ) {
@@ -70,6 +81,7 @@ namespace SortingAlgorithmVisualizer {
             for ( int i = 0; i < NumEntries; i++ ) {
                 g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, MaxVal);
             }
+            buttonStart.Enabled = true;
         }
         #region BackgroundStuff
         //group all the background stuff here
@@ -87,6 +99,9 @@ namespace SortingAlgorithmVisualizer {
             } catch ( Exception ex ) {
 
             }
+            timer.Stop();
+            //output1.
+            //Console.WriteLine($"Time ellapsed: {timer.Elapsed.TotalMilliseconds:f4} ms");
         }
 
         #endregion

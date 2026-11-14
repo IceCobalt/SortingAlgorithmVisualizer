@@ -1,18 +1,22 @@
 Not really in any order
 
 #Priority
-add threading
 fix memory issues with reset button
 fix memory issues with pause/resume button
-fix crash when pausing, then making array larger (out of bounds)
-	- give a max array value when starting the sort?
+	-both create a new sorter/bgw instance, is there a way to resuse the one already doing work?
 
 #Eventually
 optimize graphics update (can make 2x faster)
 change colors to tell which node is being swapped with what
+add timer for algorithm
+add stats (swaps, checks, etc.) (using System.Diagnostics)
 
 #Would be cool but prob won't happen
 
 
 
-#Can't do yet
+#Can't do yet/dont understand
+pause/resume button stops working when reset is pressed during sort? (sometimes)
+
+
+#fixed log
