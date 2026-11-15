@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace SortingAlgorithmVisualizer {
     public partial class Form1 : Form {
 
-        int[]? Array;
+        int[]? arr;
         Graphics? g;
         BackgroundWorker? bgw;
         bool Paused = false;
@@ -29,6 +29,10 @@ namespace SortingAlgorithmVisualizer {
         }
 
         private void outputLine( RichTextBox output, string text ) { //so that my rich text box doesnt have
+            if ( output.InvokeRequired ) {
+                output.Invoke(new Action(() => outputLine(output, text)));
+                return;
+            }
             if ( output.TextLength > 0 ) {                           //weird newline issues and uses
                 output.AppendText(Environment.NewLine);              //the whole textbox
             }
@@ -45,11 +49,12 @@ namespace SortingAlgorithmVisualizer {
         }
 
         private void buttonStart_Click( object sender, EventArgs e ) {
-            if ( Array == null ) buttonReset_Click(null, null);
+            if ( arr == null ) buttonReset_Click(null, null);
 
             bgw = new BackgroundWorker(); //do the work in a background thread
             bgw.WorkerSupportsCancellation = true; //make sure it can cancel
             bgw.DoWork += new DoWorkEventHandler(bgw_Task); //add event handler when it runs
+            bgw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgw_Completed);
             bgw.RunWorkerAsync(argument: comboBox1.SelectedItem);
 
             timer.Restart();
@@ -57,6 +62,7 @@ namespace SortingAlgorithmVisualizer {
 
             buttonStart.Enabled = false;
             comboBox1.Enabled = false;
+            buttonReset.Enabled = false;
 
         }
 
@@ -65,48 +71,49 @@ namespace SortingAlgorithmVisualizer {
                 bgw.CancelAsync();
                 Paused = true;
                 timer.Stop();
+                buttonReset.Enabled = true;
             } else {
                 if (bgw.IsBusy) return;
                 //int NumEntries = panel1.Width;
                 //int MaxVal = panel1.Height;
-                int NumEntries = Array.Length; //prevents out of bounds array
-                int MaxVal = Array.Max();
-
+                int NumEntries = arr.Length; //prevents out of bounds arr
+                int MaxVal = arr.Max();
                 Paused = false;
 
                 for (int i = 0; i < NumEntries; i++ ) {
                     g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Black), i, 0, 1, MaxVal);
-                    g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, MaxVal);
+                    g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - arr[i], 1, MaxVal);
                 }
                 bgw.RunWorkerAsync(argument: comboBox1.SelectedItem);
+                buttonReset.Enabled = false;
                 timer.Start();
             }
         }
 
-        private void buttonReset_Click( object? sender, EventArgs? e ) { // curently creates a whole new array, old one is left in memory (will eventually use up all memory
+        private void buttonReset_Click( object? sender, EventArgs? e ) { // curently creates a whole new arr, old one is left in memory (will eventually use up all memory
             g = panel1.CreateGraphics();
             int NumEntries = panel1.Width;
             int MaxVal = panel1.Height;
-            Array = new int[NumEntries];
+            arr = new int[NumEntries];
             g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Black), 0, 0, NumEntries, MaxVal);
-
+            int overflow = 1;
             for ( int i = 0; i < NumEntries; i++ ) {
-                int overflow = 1;
-                if ( i < MaxVal )
-                    Array[i] = i;
+                //when drawing bars, make sure the value stays in bounds
+                //if window is wider than it is tall, we run out of values since we are setting the max value
+                //to the height of the window. so we just generate values until we hit the max value then start over
+                if ( i < (MaxVal * overflow) )
+                    arr[i] = i - ((overflow - 1) * MaxVal);
                 else {
-                    Array[i] = i - ( overflow * MaxVal );
-                }
-                if ( i > ( MaxVal * overflow ) )
+                    arr[i] = i - ( MaxVal * overflow );
                     overflow++;
+                }
             }
-            if (shuffleToggle.Checked) {
-                Random.Shared.Shuffle(Array);
-            }
-            for ( int i = 0; i < NumEntries; i++ ) {
-                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, Array[i]);
-            }
+            if ( shuffleToggle.Checked ) //shuffle order
+                Random.Shared.Shuffle(arr);
 
+            for ( int i = 0; i < NumEntries; i++ ) { //draw rectangles
+                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - arr[i], 1, arr[i]);
+            }
             buttonStart.Enabled = true;
         }
         #region BackgroundStuff
@@ -118,16 +125,23 @@ namespace SortingAlgorithmVisualizer {
             var constructors = type.GetConstructors();
             try {
                 //make a new object that could be any specific type of sorting algorithm. We dont know it in advance
-                ISorter sort = ( ISorter )constructors[0].Invoke(new object[] { Array, g, panel1.Height, giveClassOutput });
+                var outputPerms = giveClassOutput;
+                ISorter sort = ( ISorter )constructors[0].Invoke(new object[] { arr, g, panel1.Height, outputPerms });
                 while ( !sort.IsSorted() && ( !bgw.CancellationPending ) ) {
                     sort.NextStep();
-
                 }
             } catch ( Exception ex ) {
                 outputLine(output1, ex.Message);
             }
-            timer.Stop();
-            outputLine(output1, $"Time ellapsed: {timer.Elapsed.TotalMilliseconds:f4} ms");
+        }
+
+        private void bgw_Completed( object? sender, RunWorkerCompletedEventArgs e ) {
+            if ( !Paused ) {//dont run it bgw ended via pause 
+                timer.Stop();
+                outputLine(output1, $"Time elapsed: {timer.Elapsed.TotalMilliseconds:f0} ms");
+                comboBox1.Enabled = true;
+                buttonReset.Enabled = true;
+            }
         }
 
         #endregion

@@ -44,8 +44,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(9, 3, 0, 3);
-            menuStrip1.Size = new Size(1924, 35);
+            menuStrip1.Size = new Size(1347, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -53,47 +52,44 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(54, 29);
+            fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(141, 34);
+            exitToolStripMenuItem.Size = new Size(92, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click +=  exitToolStripMenuItem_Click ;
             // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(65, 29);
+            helpToolStripMenuItem.Size = new Size(44, 20);
             helpToolStripMenuItem.Text = "Help";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(70, 77);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(49, 46);
             label1.Name = "label1";
-            label1.Size = new Size(92, 25);
+            label1.Size = new Size(61, 15);
             label1.TabIndex = 1;
             label1.Text = "Algorithm";
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(166, 72);
-            comboBox1.Margin = new Padding(4, 5, 4, 5);
+            comboBox1.Location = new Point(116, 43);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(217, 33);
+            comboBox1.Size = new Size(153, 23);
             comboBox1.TabIndex = 2;
             // 
             // buttonReset
             // 
-            buttonReset.Location = new Point(419, 70);
-            buttonReset.Margin = new Padding(4, 5, 4, 5);
+            buttonReset.Location = new Point(293, 42);
             buttonReset.Name = "buttonReset";
-            buttonReset.Size = new Size(107, 38);
+            buttonReset.Size = new Size(75, 23);
             buttonReset.TabIndex = 3;
             buttonReset.Text = "Reset";
             buttonReset.UseVisualStyleBackColor = true;
@@ -103,18 +99,16 @@
             // 
             panel1.Anchor =      AnchorStyles.Top  |  AnchorStyles.Bottom   |  AnchorStyles.Left   |  AnchorStyles.Right ;
             panel1.BackColor = SystemColors.ControlDark;
-            panel1.Location = new Point(29, 172);
-            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Location = new Point(20, 103);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1538, 861);
+            panel1.Size = new Size(1077, 517);
             panel1.TabIndex = 4;
             // 
             // buttonStart
             // 
-            buttonStart.Location = new Point(551, 70);
-            buttonStart.Margin = new Padding(4, 5, 4, 5);
+            buttonStart.Location = new Point(386, 42);
             buttonStart.Name = "buttonStart";
-            buttonStart.Size = new Size(107, 38);
+            buttonStart.Size = new Size(75, 23);
             buttonStart.TabIndex = 5;
             buttonStart.Text = "Start";
             buttonStart.UseVisualStyleBackColor = true;
@@ -122,10 +116,9 @@
             // 
             // buttonPause
             // 
-            buttonPause.Location = new Point(713, 70);
-            buttonPause.Margin = new Padding(4, 5, 4, 5);
+            buttonPause.Location = new Point(499, 42);
             buttonPause.Name = "buttonPause";
-            buttonPause.Size = new Size(257, 38);
+            buttonPause.Size = new Size(180, 23);
             buttonPause.TabIndex = 6;
             buttonPause.Text = "Pause / Resume";
             buttonPause.UseVisualStyleBackColor = true;
@@ -133,32 +126,34 @@
             // 
             // output1
             // 
-            output1.Anchor =      AnchorStyles.Top  |  AnchorStyles.Bottom   |  AnchorStyles.Left   |  AnchorStyles.Right ;
+            output1.Anchor =     AnchorStyles.Top  |  AnchorStyles.Bottom   |  AnchorStyles.Right ;
             output1.BackColor = SystemColors.Control;
-            output1.Location = new Point(1597, 70);
+            output1.Location = new Point(1118, 42);
+            output1.Margin = new Padding(2);
             output1.Name = "output1";
             output1.ReadOnly = true;
-            output1.ScrollBars = RichTextBoxScrollBars.None;
+            output1.ScrollBars = RichTextBoxScrollBars.Vertical;
             output1.ShortcutsEnabled = false;
-            output1.Size = new Size(304, 963);
+            output1.Size = new Size(214, 579);
             output1.TabIndex = 7;
             output1.Text = "";
             // 
             // shuffleToggle
             // 
             shuffleToggle.AutoSize = true;
-            shuffleToggle.Location = new Point(427, 110);
+            shuffleToggle.Location = new Point(299, 66);
+            shuffleToggle.Margin = new Padding(2);
             shuffleToggle.Name = "shuffleToggle";
-            shuffleToggle.Size = new Size(93, 29);
+            shuffleToggle.Size = new Size(63, 19);
             shuffleToggle.TabIndex = 8;
             shuffleToggle.Text = "Shuffle";
             shuffleToggle.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1924, 1047);
+            ClientSize = new Size(1347, 628);
             Controls.Add(shuffleToggle);
             Controls.Add(output1);
             Controls.Add(buttonPause);
@@ -169,7 +164,6 @@
             Controls.Add(label1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             Text = "Form1";
             menuStrip1.ResumeLayout(false);
