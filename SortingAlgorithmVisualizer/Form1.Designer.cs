@@ -116,6 +116,7 @@
             // 
             // buttonPause
             // 
+            buttonPause.Enabled = false;
             buttonPause.Location = new Point(499, 42);
             buttonPause.Name = "buttonPause";
             buttonPause.Size = new Size(180, 23);

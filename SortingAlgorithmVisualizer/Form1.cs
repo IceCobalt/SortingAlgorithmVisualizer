@@ -63,6 +63,7 @@ namespace SortingAlgorithmVisualizer {
             buttonStart.Enabled = false;
             comboBox1.Enabled = false;
             buttonReset.Enabled = false;
+            buttonPause.Enabled = true;
 
         }
 
@@ -115,6 +116,7 @@ namespace SortingAlgorithmVisualizer {
                 g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - arr[i], 1, arr[i]);
             }
             buttonStart.Enabled = true;
+            buttonPause.Enabled = false;
         }
         #region BackgroundStuff
         //group all the background stuff here
@@ -141,6 +143,7 @@ namespace SortingAlgorithmVisualizer {
                 outputLine(output1, $"Time elapsed: {timer.Elapsed.TotalMilliseconds:f0} ms");
                 comboBox1.Enabled = true;
                 buttonReset.Enabled = true;
+                buttonPause.Enabled = false;
             }
         }
 
