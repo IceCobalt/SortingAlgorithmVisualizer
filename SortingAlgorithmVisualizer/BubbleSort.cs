@@ -10,19 +10,21 @@ namespace SortingAlgorithmVisualizer {
         private int[] Array;
         private Graphics g;
         private int MaxVal;
+        private Action<string> log;
         Brush WhiteBrush = new System.Drawing.SolidBrush( System.Drawing.Color.White );
         Brush BlackBrush = new System.Drawing.SolidBrush( System.Drawing.Color.Black );
 
         //Constructor
-        public BubbleSort( int[] ArrayIn, Graphics gIn, int MaxValIn ) {
+        public BubbleSort( int[] ArrayIn, Graphics gIn, int MaxValIn, Action<string> logIn = null ) {
             //using this.Array didnt properly pass the values in so I had to make the names different
             Array = ArrayIn;
             g = gIn;
             MaxVal = MaxValIn;
+            log = logIn;
         }
 
         public void NextStep() { 
-            for (int i = 0; i < Array.Count() - 1; i++ ) {
+            for (int i = 0; i < Array.Length - 1; i++ ) {
                 if ( Array[i] > Array[i + 1] ) {
                     Swap( i, i + 1 );
                 }
@@ -49,14 +51,14 @@ namespace SortingAlgorithmVisualizer {
         }
 
         public bool IsSorted() { //if every spot i is less than spot i + 1, the array is sorted
-            for ( int i = 0; i < Array.Count() - 1; i++ ) {
+            for ( int i = 0; i < Array.Length - 1; i++ ) {
                 if ( Array[i] > Array[i + 1] ) return false;
             }
             return true;
         }
 
         public void ReDraw() {
-            for (int i = 0; i < Array.Count() - 1; i++ ) {
+            for (int i = 0; i < Array.Length - 1; i++ ) {
                 g.FillRectangle( new System.Drawing.SolidBrush( System.Drawing.Color.White ), i, MaxVal - Array[i], 1, MaxVal );
             }
         }

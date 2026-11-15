@@ -4,9 +4,9 @@ using System.Diagnostics;
 namespace SortingAlgorithmVisualizer {
     public partial class Form1 : Form {
 
-        int[] Array;
-        Graphics g;
-        BackgroundWorker bgw = null;
+        int[]? Array;
+        Graphics? g;
+        BackgroundWorker? bgw;
         bool Paused = false;
 
         private Stopwatch timer = new Stopwatch();
@@ -28,6 +28,18 @@ namespace SortingAlgorithmVisualizer {
             comboBox1.SelectedIndex = 0;
         }
 
+        private void outputLine( RichTextBox output, string text ) { //so that my rich text box doesnt have
+            if ( output.TextLength > 0 ) {                           //weird newline issues and uses
+                output.AppendText(Environment.NewLine);              //the whole textbox
+            }
+            output.AppendText(text);
+            output1.ScrollToCaret();
+        }
+
+        private void giveClassOutput( string message ) { // for other classes to send output
+            outputLine(output1, message + Environment.NewLine);
+        }
+
         private void exitToolStripMenuItem_Click( object sender, EventArgs e ) {
             this.Close();
         }
@@ -44,6 +56,7 @@ namespace SortingAlgorithmVisualizer {
 
 
             buttonStart.Enabled = false;
+            comboBox1.Enabled = false;
 
         }
 
@@ -51,11 +64,12 @@ namespace SortingAlgorithmVisualizer {
             if (!Paused) {
                 bgw.CancelAsync();
                 Paused = true;
+                timer.Stop();
             } else {
                 if (bgw.IsBusy) return;
                 //int NumEntries = panel1.Width;
                 //int MaxVal = panel1.Height;
-                int NumEntries = Array.Count(); //prevents out of bounds array
+                int NumEntries = Array.Length; //prevents out of bounds array
                 int MaxVal = Array.Max();
 
                 Paused = false;
@@ -65,22 +79,34 @@ namespace SortingAlgorithmVisualizer {
                     g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, MaxVal);
                 }
                 bgw.RunWorkerAsync(argument: comboBox1.SelectedItem);
+                timer.Start();
             }
         }
 
-        private void buttonReset_Click( object sender, EventArgs e ) { // curently creates a whole new array, old one is left in memory (will eventually use up all memory
+        private void buttonReset_Click( object? sender, EventArgs? e ) { // curently creates a whole new array, old one is left in memory (will eventually use up all memory
             g = panel1.CreateGraphics();
             int NumEntries = panel1.Width;
             int MaxVal = panel1.Height;
             Array = new int[NumEntries];
             g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Black), 0, 0, NumEntries, MaxVal);
-            Random rand = new Random();
+
             for ( int i = 0; i < NumEntries; i++ ) {
-                Array[i] = rand.Next(0, MaxVal);
+                int overflow = 1;
+                if ( i < MaxVal )
+                    Array[i] = i;
+                else {
+                    Array[i] = i - ( overflow * MaxVal );
+                }
+                if ( i > ( MaxVal * overflow ) )
+                    overflow++;
+            }
+            if (shuffleToggle.Checked) {
+                Random.Shared.Shuffle(Array);
             }
             for ( int i = 0; i < NumEntries; i++ ) {
-                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, MaxVal);
+                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - Array[i], 1, Array[i]);
             }
+
             buttonStart.Enabled = true;
         }
         #region BackgroundStuff
@@ -92,16 +118,16 @@ namespace SortingAlgorithmVisualizer {
             var constructors = type.GetConstructors();
             try {
                 //make a new object that could be any specific type of sorting algorithm. We dont know it in advance
-                ISorter sort = ( ISorter )constructors[0].Invoke(new object[] { Array, g, panel1.Height });
+                ISorter sort = ( ISorter )constructors[0].Invoke(new object[] { Array, g, panel1.Height, giveClassOutput });
                 while ( !sort.IsSorted() && ( !bgw.CancellationPending ) ) {
                     sort.NextStep();
+
                 }
             } catch ( Exception ex ) {
-
+                outputLine(output1, ex.Message);
             }
             timer.Stop();
-            //output1.
-            //Console.WriteLine($"Time ellapsed: {timer.Elapsed.TotalMilliseconds:f4} ms");
+            outputLine(output1, $"Time ellapsed: {timer.Elapsed.TotalMilliseconds:f4} ms");
         }
 
         #endregion

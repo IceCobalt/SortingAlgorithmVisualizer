@@ -34,6 +34,7 @@
             buttonStart = new Button();
             buttonPause = new Button();
             output1 = new RichTextBox();
+            shuffleToggle = new CheckBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             panel1.Location = new Point(29, 172);
             panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1855, 861);
+            panel1.Size = new Size(1538, 861);
             panel1.TabIndex = 4;
             // 
             // buttonStart
@@ -132,20 +133,33 @@
             // 
             // output1
             // 
+            output1.Anchor =      AnchorStyles.Top  |  AnchorStyles.Bottom   |  AnchorStyles.Left   |  AnchorStyles.Right ;
             output1.BackColor = SystemColors.Control;
-            output1.Location = new Point(1060, 63);
+            output1.Location = new Point(1597, 70);
             output1.Name = "output1";
             output1.ReadOnly = true;
-            output1.ScrollBars = RichTextBoxScrollBars.Vertical;
-            output1.Size = new Size(304, 88);
+            output1.ScrollBars = RichTextBoxScrollBars.None;
+            output1.ShortcutsEnabled = false;
+            output1.Size = new Size(304, 963);
             output1.TabIndex = 7;
             output1.Text = "";
+            // 
+            // shuffleToggle
+            // 
+            shuffleToggle.AutoSize = true;
+            shuffleToggle.Location = new Point(427, 110);
+            shuffleToggle.Name = "shuffleToggle";
+            shuffleToggle.Size = new Size(93, 29);
+            shuffleToggle.TabIndex = 8;
+            shuffleToggle.Text = "Shuffle";
+            shuffleToggle.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 1047);
+            Controls.Add(shuffleToggle);
             Controls.Add(output1);
             Controls.Add(buttonPause);
             Controls.Add(buttonStart);
@@ -177,5 +191,6 @@
         private Button buttonStart;
         private Button buttonPause;
         private RichTextBox output1;
+        private CheckBox shuffleToggle;
     }
 }
