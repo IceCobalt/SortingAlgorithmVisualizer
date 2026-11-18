@@ -1,7 +1,7 @@
 
 
 #TODO list\
--Not really in any order\
+-Not really in any order
 
 ##Priority\
 -fix memory issues with reset button\
