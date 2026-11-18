@@ -1,27 +1,24 @@
 
 
-TODO list
-Not really in any order
+#TODO list\
+-Not really in any order\
 
-#Priority
-fix memory issues with reset button
-fix memory issues with pause/resume button
+##Priority\
+-fix memory issues with reset button\
+-fix memory issues with pause/resume button\
 	-both create a new sorter/bgw instance, is there a way to resuse the one already doing work?
 
-#Eventually
-optimize graphics update (can make 2x faster)
-change colors to tell which node is being swapped with what
-add timer for algorithm
-	-mostly implemented
-add stats (swaps, checks, etc.) (using System.Diagnostics)
-add sounds
+##Eventually\
+-optimize graphics update (can make 2x faster)\
+-change colors to tell which node is being swapped with what\
+-add timer for algorithm\
+	-mostly implemented\
+-add stats (swaps, checks, etc.) (using System.Diagnostics)\
+-add sounds
 
-#Would be cool but prob won't happen
-  resuming is technically restarting the sort, not truly pausing it
-
-
-#Can't do yet/dont understand
-pause/resume button stops working when reset is pressed during sort? (sometimes)
+##Would be cool but prob won't happen\
+  -resuming is technically restarting the sort, not truly pausing it
 
 
-#fixed log
+##Can't do yet/dont understand\
+-pause/resume button stops working when reset is pressed during sort? (sometimes)
